@@ -123,7 +123,7 @@ function getOrderRequest() {
           name: "J Testing",
           quantity: "1",
           base_price_money: {
-            amount: 20,
+            amount: 100,
             currency: "AUD"
           }
         }
