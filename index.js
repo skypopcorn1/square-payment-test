@@ -127,8 +127,8 @@ app.post('/createCustomerCard', async (request, response) => {
 
     response.status(200).json(customerCardResponse.card);
   } catch (e) {
-    delete e.response.req.headers;
-    delete e.response.req._headers;
+    // delete e.response.req.headers;
+    // delete e.response.req._headers;
     console.log(
       `[Error] Status:${e.status}, Messages: ${JSON.stringify((JSON.parse(e.response.text)).errors, null, 2)}`);
 
