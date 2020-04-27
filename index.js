@@ -107,10 +107,10 @@ app.post('/creatCustomer', async (request, response) => {
     response.status(200).json(customerCreatedResponse);
   } catch (e) {
     console.log(
-      `[Error] Status:${e.status}, Messages: ${e.response}`);
+      `[Error] Status:${e}`);
 
-    const { errors } = (JSON.parse(e.response));
-    sendErrorMessage(errors, response);
+    // const { errors } = (JSON.parse(e.response));
+    // sendErrorMessage(errors, response);
   }
 });
 
