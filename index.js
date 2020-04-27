@@ -106,8 +106,6 @@ app.post('/creatCustomer', async (request, response) => {
 
     response.status(200).json(customerCreatedResponse);
   } catch (e) {
-    delete e.response.req.headers;
-    delete e.response.req._headers;
     console.log(
       `[Error] Status:${e.status}, Messages: ${JSON.stringify((JSON.parse(e.response.text)).errors, null, 2)}`);
 
