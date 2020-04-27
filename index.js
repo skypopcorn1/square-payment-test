@@ -99,7 +99,9 @@ app.post('/creatCustomer', async (request, response) => {
   console.log("logs are coming through Saturn5");
   try {
     console.log("trying customer creation");
-    const body = new CreateCustomerRequest(requestBody.email);
+    const body = {
+      email_address: requestBody.email
+    }
     console.log(body);
     const customerCreatedResponse = await customersApi.createCustomer(body);
     console.log(customerCreatedResponse);
