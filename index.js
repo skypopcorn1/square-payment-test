@@ -118,9 +118,9 @@ app.post('/creatCustomer', async (request, response) => {
 
 app.post('/createCustomerCard', async (request, response) => {
   const requestBody = request.body;
-  console.log(requestBody);
+  console.log(`requestBody: ${requestBody}`);
   try {
-    const body = new CreateCustomerCardRequest(requestBody.nonce);
+    const body = new CreateCustomerCardRequest(requestBody.card_nonce);
     console.log(body);
     const customerCardResponse = await customersApi.createCustomerCard(requestBody.customer_id, body);
     console.log(customerCardResponse.card);
