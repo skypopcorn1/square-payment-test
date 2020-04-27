@@ -93,6 +93,27 @@ app.post('/chargeCustomerCard', async (request, response) => {
   }
 });
 
+app.post('/creatCustomer', async (request, response) => {
+  const requestBody = request.body;
+  console.log(requestBody);
+  try {
+    const body = new CreateCustomerRequest(requestBody.email);
+    console.log(body);
+    const customerCreatedResponse = await customersApi.createCustomer(body);
+    console.log(customerCreatedResponse);
+
+    response.status(200).json(customerCreatedResponse);
+  } catch (e) {
+    delete e.response.req.headers;
+    delete e.response.req._headers;
+    console.log(
+      `[Error] Status:${e.status}, Messages: ${JSON.stringify((JSON.parse(e.response.text)).errors, null, 2)}`);
+
+    const { errors } = (JSON.parse(e.response.text));
+    sendErrorMessage(errors, response);
+  }
+});
+
 app.post('/createCustomerCard', async (request, response) => {
   const requestBody = request.body;
   console.log(requestBody);
