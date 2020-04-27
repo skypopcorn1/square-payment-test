@@ -107,9 +107,9 @@ app.post('/creatCustomer', async (request, response) => {
     response.status(200).json(customerCreatedResponse);
   } catch (e) {
     console.log(
-      `[Error] Status:${e.status}, Messages: ${JSON.stringify((JSON.parse(e.response.text)).errors, null, 2)}`);
+      `[Error] Status:${e.status}, Messages: ${e.response}`);
 
-    const { errors } = (JSON.parse(e.response.text));
+    const { errors } = (JSON.parse(e.response));
     sendErrorMessage(errors, response);
   }
 });
