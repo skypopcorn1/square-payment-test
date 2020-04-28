@@ -62,36 +62,38 @@ app.post('/chargeForCookie', async (request, response) => {
 });
 
 app.post('/chargeCustomerCard', async (request, response) => {
-  const customer = "QJ5WCY98BWTVK5DQN89SNCXBXW";
-  // Create a charge using the pushId as the idempotency key
-  // protecting against double charges
-  const payment_source = "ccof:G7WFjhyinSaf4rso4GB";
-  const rental_fee = {
-    amount: 150 * 0.875,
-    currency: 'AUD',
-  };
-  const app_fee = {
-    amount: 150 - rental_fee,
-    currency: 'AUD',
-  };
-  const idempotencyKey = crypto.randomBytes(12).toString('hex');
-  const locations = await locationsApi.listLocations();
-  const locationId = locations.locations[0].id;
-  const paymentDetails = {
-      idempotency_key: idempotencyKey,
-      source_id: payment_source,
-      amount_money: rental_fee,
-      app_fee_money: app_fee,
-      autocomplete: true,
-      customer_id: customer,
-      location_id: locationId,
-      reference_id: "herokuTest"
-  };
-  // const paymentRequest = await paymentsApi.CreatePaymentRequest(paymentDetails);
-  const payment = await paymentsApi.createPayment(paymentDetails);
-  console.log(payment.payment);
 
-  response.status(200).json(payment.payment);
+  try {
+    const customer = "QJ5WCY98BWTVK5DQN89SNCXBXW";
+    // Create a charge using the pushId as the idempotency key
+    // protecting against double charges
+    const payment_source = "ccof:G7WFjhyinSaf4rso4GB";
+    const rental_fee = {
+      amount: 150 * 0.875,
+      currency: 'AUD',
+    };
+    const app_fee = {
+      amount: 150 - rental_fee,
+      currency: 'AUD',
+    };
+    const idempotencyKey = crypto.randomBytes(12).toString('hex');
+    const locations = await locationsApi.listLocations();
+    const locationId = locations.locations[0].id;
+    const paymentDetails = {
+        idempotency_key: idempotencyKey,
+        source_id: payment_source,
+        amount_money: rental_fee,
+        app_fee_money: app_fee,
+        autocomplete: true,
+        customer_id: customer,
+        location_id: locationId,
+        reference_id: "herokuTest"
+    };
+    // const paymentRequest = await paymentsApi.CreatePaymentRequest(paymentDetails);
+    const payment = await paymentsApi.createPayment(paymentDetails);
+    console.log(payment.payment);
+
+    response.status(200).json(payment.payment);
 
   // const requestBody = request.body;
   // const createOrderRequest = getOrderRequest();
