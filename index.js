@@ -69,13 +69,15 @@ app.post('/chargeCustomerCard', async (request, response) => {
     // protecting against double charges
     const payment_source = "ccof:G7WFjhyinSaf4rso4GB";
     const rental_fee = {
-      amount: 150 * 0.875,
+      amount: Math.ceil(150 * 0.875),
       currency: 'AUD',
     };
     const app_fee = {
-      amount: 150 - rental_fee,
+      amount: 150 - rental_fee.amount,
       currency: 'AUD',
     };
+
+    console.log(`r_fee: ${rental_fee.amount}, a_fee: ${app_fee.amount}`);
     const idempotencyKey = crypto.randomBytes(12).toString('hex');
     const locations = await locationsApi.listLocations();
     const locationId = locations.locations[0].id;
